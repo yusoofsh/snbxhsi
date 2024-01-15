@@ -1,5 +1,7 @@
 # Tugas Level 0
 
+Bismillah,
+
 Berikut adalah submisi 2 tugas yang telah ana selesaikan pada level 0:
 
 ## Pembuatan akun GitLab dan push repository
@@ -17,6 +19,6 @@ Terlampir tampilan dari aplikasi Visual Studio Code yang telah ana install:
 
 ![Tampilan Visual Studio Code](../assets/vscode.png)
 
-## Penutup
+---
 
-Sekian submisi tugas ana. Jazaakallaahu khairan katsiran.
+Sekian. Jazaakallaahu khairan katsiran.
