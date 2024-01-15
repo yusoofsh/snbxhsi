@@ -11,7 +11,7 @@ Ana telah membuat akun GitLab dengan username `yusoofsh`. Kemudian ana membuat r
 Didalam repo tersebut, ana menambahkan sebuah file [readme](../readme.md) sederhana, juga [license](../license.md).
 Lalu melakukan inisialisasi repo Git, commit perubahan, dan push ke GitLab.
 
-Hasilnya, repository ini dapat diakses di: https://gitlab.com/yusoofsh/snbxhsiid
+Hasilnya, repository ini dapat diakses di: https://gitlab.com/yusoofsh/snbxhsiid.
 
 ## Instalasi code editor (Visual Studio Code)
 
