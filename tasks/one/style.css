@@ -2,28 +2,21 @@ a {
   text-decoration: none !important;
 }
 
-.column {
+.parent {
   background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  margin: 4rem 8rem 0;
 }
 
 .header {
   display: flex;
-  width: 100%;
   align-items: start;
   justify-content: space-between;
-  gap: 20px;
 }
+
 .img {
-  aspect-ratio: 2.85;
   object-fit: contain;
   object-position: center;
-  width: 114px;
   overflow: hidden;
-  max-width: 100%;
 }
 
 .menu {
@@ -59,16 +52,16 @@ a {
   width: 40%;
 }
 
-.div-8 {
-  gap: 20px;
+.content {
+  gap: 2rem;
   display: flex;
+  margin-top: 8rem;
 }
+
 .column {
   display: flex;
   flex-direction: column;
   line-height: normal;
-  width: 54%;
-  margin-left: 0px;
 }
 .span-5 {
   display: flex;
