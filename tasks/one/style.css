@@ -1,19 +1,16 @@
-.div {
+a {
+  text-decoration: none !important;
+}
+
+.column {
   background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 46px 60px;
 }
-.div-2 {
-  display: flex;
-  margin-bottom: 87px;
-  width: 100%;
-  max-width: 1163px;
-  flex-direction: column;
-}
-.div-3 {
+
+.header {
   display: flex;
   width: 100%;
   align-items: start;
@@ -28,59 +25,40 @@
   overflow: hidden;
   max-width: 100%;
 }
-.div-4 {
+
+.menu {
   display: flex;
   justify-content: space-between;
   gap: 20px;
 }
-.span {
-  display: flex;
-  flex-grow: 1;
-  flex-basis: 0%;
-  flex-direction: column;
-}
-.div-5 {
+
+.menu-item {
   color: #000;
   text-transform: uppercase;
   white-space: nowrap;
+  flex-grow: 1;
+  justify-content: center;
+  padding: 1px 0;
   font: 400 16px Poppins, sans-serif;
+  text-decoration: none;
+  position: relative;
 }
-.div-6 {
+
+.menu-item::after {
+  content: '';
   background-color: #000;
-  display: flex;
+  display: block;
   height: 1px;
-  flex-direction: column;
+  width: 0;
+  margin-top: 0.2rem;
+  transition: width 0.2s ease-in-out;
 }
-.span-2 {
-  color: #000;
-  text-transform: uppercase;
-  white-space: nowrap;
-  flex-grow: 1;
-  justify-content: center;
-  padding: 1px 0;
-  font: 400 16px Poppins, sans-serif;
+
+.menu-item:hover::after,
+.menu-item.active::after {
+  width: 40%;
 }
-.span-3 {
-  color: #000;
-  text-transform: uppercase;
-  white-space: nowrap;
-  aspect-ratio: 2.6;
-  justify-content: center;
-  padding: 1px 0;
-  font: 400 16px Poppins, sans-serif;
-}
-.span-4 {
-  color: #000;
-  text-transform: uppercase;
-  white-space: nowrap;
-  flex-grow: 1;
-  justify-content: center;
-  padding: 1px 0;
-  font: 400 16px Poppins, sans-serif;
-}
-.div-7 {
-  margin-top: 136px;
-}
+
 .div-8 {
   gap: 20px;
   display: flex;
