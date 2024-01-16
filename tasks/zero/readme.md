@@ -8,7 +8,7 @@ Berikut adalah submisi 2 tugas yang telah ana selesaikan pada level 0:
 
 Ana telah membuat akun GitLab dengan username `yusoofsh`. Kemudian ana membuat repository baru bernama `snbxhsiid`.
 
-Didalam repo tersebut, ana menambahkan sebuah file [readme](../readme.md) sederhana, juga [license](../license.md).
+Didalam repo tersebut, ana menambahkan sebuah file [readme](../../readme.md) sederhana, juga [license](../../license.md).
 Lalu melakukan inisialisasi repo Git, commit perubahan, dan push ke GitLab.
 
 Hasilnya, repository ini dapat diakses di: https://gitlab.com/yusoofsh/snbxhsiid.
@@ -17,7 +17,7 @@ Hasilnya, repository ini dapat diakses di: https://gitlab.com/yusoofsh/snbxhsiid
 
 Terlampir tampilan dari aplikasi Visual Studio Code yang telah ana install:
 
-![Tampilan Visual Studio Code](../assets/vscode.png)
+![Tampilan Visual Studio Code](./vscode.png)
 
 ---
 
