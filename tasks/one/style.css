@@ -126,12 +126,13 @@ h1 {
 .banner-title {
   font-weight: 200;
   font-size: 1.8rem;
+  margin: 0.4rem 0;
 }
 
 .banner-subtitle {
   font-weight: 300;
   font-size: 1rem;
-  margin: 0.4rem;
+  margin: 0.8rem 0;
 }
 
 .div-17 {
