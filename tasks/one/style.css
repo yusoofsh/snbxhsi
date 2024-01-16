@@ -1,3 +1,7 @@
+body {
+  font-family: Poppins, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 a {
   text-decoration: none !important;
   color: #000;
@@ -5,6 +9,15 @@ a {
 
 h1 {
   margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.underline {
+  text-decoration-line: underline;
+}
+
+.bold {
+  font-weight: 700;
 }
 
 .parent {
@@ -31,15 +44,7 @@ h1 {
 }
 
 .menu-item {
-  color: #000;
   text-transform: uppercase;
-  white-space: nowrap;
-  flex-grow: 1;
-  justify-content: center;
-  padding: 1px 0;
-  font: 400 16px Poppins, sans-serif;
-  text-decoration: none;
-  position: relative;
 }
 
 .menu-item::after {
@@ -48,13 +53,12 @@ h1 {
   display: block;
   height: 1px;
   width: 0;
-  margin-top: 0.2rem;
   transition: width 0.2s ease-in-out;
 }
 
 .menu-item:hover::after,
 .menu-item.active::after {
-  width: 40%;
+  width: 35%;
 }
 
 .section {
@@ -76,17 +80,17 @@ h1 {
 }
 
 .title {
-  font: 400 4rem Playfair Display, -apple-system, Roboto, Helvetica, sans-serif;
+  font: 3.6rem Playfair Display, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .description {
-  margin-top: 2rem;
-  font: 300 1.2rem Poppins, sans-serif;
+  font-weight: 300;
+  font-size: 1.24rem;
 }
 
 .action {
   display: flex;
-  margin-top: 2.4rem;
+  margin-top: 1.2rem;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
@@ -96,18 +100,16 @@ h1 {
   border-radius: 19px;
   background-color: #f2f0df;
   padding: 1rem 1.8rem;
-  font: 700 1.1rem Poppins, sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
 }
 
 .action-two {
   align-items: center;
   display: flex;
-  gap: 0.4rem;
-}
-
-.underline {
-  text-decoration-line: underline;
-  font: 400 1rem Poppins, sans-serif;
+  gap: 0.6rem;
+  font-weight: 400;
+  font-size: 1.23rem;
 }
 
 .banner {
@@ -122,10 +124,14 @@ h1 {
 }
 
 .banner-title {
-  font: 100 1.8rem Poppins, sans-serif;
+  font-weight: 200;
+  font-size: 1.8rem;
 }
+
 .banner-subtitle {
-  font: 300 1rem Poppins, sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  margin: 0.4rem;
 }
 
 .div-17 {
