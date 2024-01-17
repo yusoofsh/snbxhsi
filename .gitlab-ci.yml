@@ -4,11 +4,7 @@ pages:
   stage: deploy
   script:
     - echo "The site will be deployed to $CI_PAGES_URL"
-    - git log --pretty=format:"%h" | while read commit_hash; do
-        git checkout $commit_hash
-        mkdir -p public/$commit_hash
-        cp -r tasks/* public/$commit_hash/
-      done
+    - git log --pretty=format:"%H" | while read commit_hash; do git checkout $commit_hash; mkdir -p public/$commit_hash; cp -r tasks/* public/$commit_hash/; done
   artifacts:
     paths:
       - public
