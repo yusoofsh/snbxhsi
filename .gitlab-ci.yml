@@ -5,7 +5,7 @@ pages:
     - echo "The site will be deployed to $CI_PAGES_URL"
     - apk add git
     - cp -r public .temp
-    - git log --pretty=format:"%H" | while read commit_hash; do git checkout $commit_hash; mkdir -p public/$commit_hash; cp -r tasks/* public/$commit_hash; done
+    - git log --pretty=format:"%H" | while read commit_hash; do git checkout $commit_hash; mkdir -p public/$commit_hash; cp -r * public/$commit_hash; done
     - cp -r .temp/* public; rm -rf .temp
   artifacts:
     paths:
