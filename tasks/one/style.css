@@ -10,8 +10,7 @@ a {
 }
 
 h1 {
-  margin-top: 0.4rem;
-  margin-bottom: 0.4rem;
+  margin: 0;
 }
 
 .underline {
@@ -66,25 +65,21 @@ h1 {
 
 .section {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   margin-top: 7.4rem;
   gap: 8rem;
 }
 
-@media (min-width: 768px) {
-  .section {
-    flex-direction: row;
-  }
-}
-
 .hero {
+  flex: 1;
   flex-basis: 50%;
   display: flex;
   flex-direction: column;
 }
 
 .title {
-  font-size: 3.2rem;
+  font-size: 3.6vw;
   font-family: Playfair Display, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
     sans-serif;
@@ -92,7 +87,7 @@ h1 {
 
 .description {
   font-weight: 300;
-  font-size: 1.16rem;
+  font-size: 1.2rem;
   margin-top: 1rem;
 }
 
@@ -102,6 +97,7 @@ h1 {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  gap: 1.2rem;
 }
 
 .action-one {
@@ -132,17 +128,18 @@ h1 {
 
 .banner-title {
   font-weight: 200;
-  font-size: 2rem;
+  font-size: 2.36rem;
   margin: 0.36rem 0;
 }
 
 .banner-subtitle {
   font-weight: 200;
-  font-size: 0.89rem;
+  font-size: 0.94rem;
   margin: 0.8rem 0;
 }
 
 .product {
+  flex: 1;
   flex-basis: 50%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -161,7 +158,7 @@ h1 {
 
 .product-two,
 .product-three {
-  max-height: 28.2vh;
+  max-height: 257px;
 }
 
 .product-one {
@@ -186,7 +183,15 @@ h1 {
   margin: 0 1rem;
   padding: 0.5rem 1rem;
   gap: 1rem;
-  transform: translate(0, -9.4vh);
+}
+
+.product-details-one {
+  transform: translate(0, -86px);
+}
+
+.product-details-two,
+.product-details-three {
+  transform: translate(0, -82px);
 }
 
 .product-name {
@@ -208,4 +213,19 @@ h1 {
 .product-divider {
   border-right: 1px #e4e4e4 solid;
   height: 2.6rem;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .parent {
+    margin: 4rem;
+  }
+
+  .product {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
