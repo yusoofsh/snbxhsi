@@ -4,7 +4,8 @@ pages:
   stage: deploy
   script:
     - echo "The site will be deployed to $CI_PAGES_URL"
-    - cp -r tasks/* public
+    - mkdir -p public/$CI_COMMIT_SHA
+    - cp -r tasks/* public/$CI_COMMIT_SHA/
   artifacts:
     paths:
       - public
