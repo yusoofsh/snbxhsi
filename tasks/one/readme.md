@@ -14,8 +14,8 @@ Berikut submisi tugas implementasi desain website ana:
 
 ## Hasil pengerjaan
 
-- [Live preview](https://snbxhsiid.yusoofsh.id/one)
-- [Source code](https://gitlab.com/yusoofsh/snbxhsiid/-/tree/6a68a517a39f6553c3acf8c22ee9f664f840d9b4/tasks/one)
+- [Live preview](https://snbxhsiid.yusoofsh.id/923b3916638bdbadaa0ea3dcae66dfe75de38d13/one)
+- [Source code](https://gitlab.com/yusoofsh/snbxhsiid/-/tree/923b3916638bdbadaa0ea3dcae66dfe75de38d13/tasks/one)
 
 ![Tampilan utama](fauxica.png)
 
