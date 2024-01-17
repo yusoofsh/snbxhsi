@@ -2,22 +2,22 @@
 
 Bismillah,
 
-Berikut adalah submisi 4 tugas yang telah ana selesaikan pada level 1:
+Berikut submisi tugas implementasi desain website ana:
 
-## Ikuti desain yang telah disediakan
+## Poin acceptance criteria
 
-Ana telah membuat akun GitLab dengan username `yusoofsh`. Kemudian ana membuat repository baru bernama `snbxhsiid`.
+- [x] Ikuti desain yang telah disediakan di Figma.
+- [x] Gunakan aset yang telah disediakan di Google Drive.
+- [x] Tambahkan font "Playfair Display" dan "Poppins".
+- [x] Hindari penggunaan property CSS position.
+- [x] Source code terdiri dari HTML dan CSS saja.
 
-Didalam repo tersebut, ana menambahkan sebuah file [readme](../../readme.md) sederhana, juga [license](../../license.md).
-Lalu melakukan inisialisasi repo Git, commit perubahan, dan push ke GitLab.
+## Hasil pengerjaan
 
-Hasilnya, repository ini dapat diakses di: https://gitlab.com/yusoofsh/snbxhsiid.
+- [Live preview](https://snbxhsiid.yusoofsh.id/one)
+- [Source code](https://gitlab.com/yusoofsh/snbxhsiid/-/tree/6a68a517a39f6553c3acf8c22ee9f664f840d9b4/tasks/one)
 
-## Gunakan aset yang dapat diunduh di Assets
-
-Terlampir tampilan dari aplikasi Visual Studio Code yang telah ana install:
-
-![Tampilan Visual Studio Code](./vscode.png)
+![Tampilan utama](fauxica.png)
 
 ---
 
