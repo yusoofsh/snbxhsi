@@ -7,6 +7,7 @@ pages:
     - |
       git log --pretty=format:"%H" | while read COMMIT_HISTORY_SHA; do
         git checkout $COMMIT_HISTORY_SHA
+        mkdir -p public/$COMMIT_HISTORY_SHA
         cp -r tasks readme.md public/$COMMIT_HISTORY_SHA
       done
     - git checkout $CI_COMMIT_SHA
