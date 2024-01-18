@@ -4,11 +4,16 @@ pages:
   script:
     - echo "The site will be deployed to $CI_PAGES_URL"
     - apk add git
-    - cp -r public .temp
-    - git log --pretty=format:"%H" | while read commit_hash; do git checkout $commit_hash; mkdir -p public/$commit_hash; cp -r $(ls -A | grep -v 'public') public/$commit_hash; done
-    - cp -r .temp/* public; rm -rf .temp
+    - |
+      git log --pretty=format:"%H" | while read commit_hash; do
+        git checkout $commit_hash
+        mkdir -p public/$commit_hash/tasks
+        cp -r tasks public/$commit_hash/tasks
+        cp readme.md public/$commit_hash/readme.md
+      done
+    - git checkout $CI_COMMIT_SHA
   artifacts:
     paths:
       - public
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH ==
