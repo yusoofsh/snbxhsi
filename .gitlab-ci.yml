@@ -5,11 +5,9 @@ pages:
     - echo "The site will be deployed to $CI_PAGES_URL"
     - apk add git
     - |
-      git log --pretty=format:"%H" | while read commit_hash; do
-        git checkout $commit_hash
-        mkdir -p public/$commit_hash/tasks
-        cp -r tasks public/$commit_hash/tasks
-        cp readme.md public/$commit_hash/readme.md
+      git log --pretty=format:"%H" | while read $COMMIT_HISTORY_SHA; do
+        git checkout $COMMIT_HISTORY_SHA
+        cp -r tasks readme.md public/$COMMIT_HISTORY_SHA
       done
     - git checkout $CI_COMMIT_SHA
   artifacts:
