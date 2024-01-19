@@ -20,3 +20,4 @@ pages:
   rules:
     - exists:
         - $CI_COMMIT_TAG
+    - when: manual
