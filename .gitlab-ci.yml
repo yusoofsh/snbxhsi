@@ -1,8 +1,11 @@
 image: alpine:latest
 
+stages:
+  - deploy
+
 pages:
+  stage: deploy
   script:
-    - echo "The site will be deployed to $CI_PAGES_URL"
     - apk add git
     - |
       git log --tags --simplify-by-decoration --pretty=format:"%H" | while read COMMIT_HISTORY_SHA; do
@@ -14,5 +17,7 @@ pages:
   artifacts:
     paths:
       - public
+  only:
+    - tags
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
