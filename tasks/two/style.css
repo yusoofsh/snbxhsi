@@ -1,5 +1,42 @@
+.steps {
+  display: flex;
+  flex-direction: row;
+}
 
-.greeting {
-  color: darkgreen;
-  font-family: Georgia;
+.container {
+  width: 30vw;
+  margin-top: 2rem;
+  padding: 4rem;
+  background: white;
+  box-shadow: 0px 5px 16px 0px #080F340F;
+  border-radius: 34px;
+  border-width: 1px;
+  border-color: #EFF0F6;
+  border-style: solid;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.subtitle {
+  color: #6f6c90;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1, p {
+  margin: 0.4rem;
+  padding: 0;
+}
+
+body {
+  padding: 2rem;
+  background-color: #fff;
+  font-family: "DM Sans", system-ui, -apple-system, sans-serif;
 }
