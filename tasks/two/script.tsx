@@ -17,12 +17,74 @@ import ReactDOM from "https://esm.sh/react-dom@18.2.0/client";
 // @ts-ignore -- Will be resolved runtime.
 import React from "https://esm.sh/react@18.2.0";
 
-const Steps = ({ number }: { number: number }) => {
-  const steps = [1, 2, 3, 4];
+type Content = { name: string; label: string; type: string; icon: string };
+
+type Page = {
+  title: string;
+  description: string;
+  content: Record<string, Content>;
+};
+
+const Form = ({ number }: { number: number }) => {
+  const { title, description, content } = pages[number - 1];
 
   return (
+    <form>
+      <h2 className="title">{title}</h2>
+      <p className="description">{description}</p>
+      <div className="row">
+        <div className="column">
+          <p>{content.name.label}</p>
+          <input
+            name={content.name.name}
+            className="input-text"
+            placeholder={content.name.label}
+            type={content.name.type}
+            style={{ backgroundImage: `url(${content.name.icon})` }}
+          />
+        </div>
+        <div className="column">
+          <p>{content.email.label}</p>
+          <input
+            name={content.name.name}
+            className="input-text"
+            placeholder={content.email.label}
+            type={content.email.type}
+            style={{ backgroundImage: `url(${content.email.icon})` }}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="column">
+          <p>{content.phone.label}</p>
+          <input
+            name={content.name.name}
+            className="input-text"
+            placeholder={content.phone.label}
+            type={content.phone.type}
+            style={{ backgroundImage: `url(${content.phone.icon})` }}
+          />
+        </div>
+        <div className="column">
+          <p>{content.company.label}</p>
+          <input
+            name={content.name.name}
+            className="input-text"
+            placeholder={content.company.label}
+            type={content.company.type}
+            style={{ backgroundImage: `url(${content.company.icon})` }}
+          />
+        </div>
+      </div>
+    </form>
+  );
+};
+
+const Steps = ({ number }: { number: number }) => {
+  return (
     <div className="steps">
-      {steps.map((step, index) => {
+      {pages.map((_, index) => {
+        const step = index + 1;
         const progressHalf = step === number;
         const progressFull = step <= number;
         const currentStep = progressHalf || progressFull;
@@ -39,7 +101,7 @@ const Steps = ({ number }: { number: number }) => {
             >
               {step}
             </div>
-            {index !== steps.length - 1 && (
+            {index !== pages.length - 1 && (
               <div className="bar">
                 <div
                   className="progress"
@@ -54,12 +116,17 @@ const Steps = ({ number }: { number: number }) => {
   );
 };
 
-const Container = () => (
-  <div className="container">
-    <Steps number={1} />
-    <span className="divider" />
-  </div>
-);
+const Container = () => {
+  const number = 1;
+
+  return (
+    <div className="container">
+      <Steps number={number} />
+      <span className="divider" />
+      <Form number={number} />
+    </div>
+  );
+};
 
 const Header = () => (
   <div className="text-center">
@@ -78,6 +145,37 @@ const App = () => (
     <Container />
   </>
 );
+
+const pages: Page[] = [
+  {
+    title: "Contact details",
+    description: "Lorem ipsum dolor sit amet consectetur adipisc.",
+    content: {
+      name: { name: "name", label: "Name", type: "text", icon: "./user.svg" },
+      email: {
+        name: "email",
+        label: "Email",
+        type: "email",
+        icon: "./mail.svg",
+      },
+      phone: {
+        name: "phone",
+        label: "Phone Number",
+        type: "tel",
+        icon: "./phone.svg",
+      },
+      company: {
+        name: "company",
+        label: "Company",
+        type: "text",
+        icon: "./building.svg",
+      },
+    },
+  },
+  { title: "", description: "", content: {} },
+  { title: "", description: "", content: {} },
+  { title: "", description: "", content: {} },
+];
 
 const target = document.getElementById("root");
 if (!target) throw "Target element #root not found";
