@@ -7,26 +7,57 @@
  * The external dependencies used by this application were only React and Babel. It is allowed (https://t.me/c/1808349325/143).
  */
 
-// Allows the document object to be typed. Ignored on runtime.
+// Allows the document object to be typed.
 /// <reference lib="dom" />
+// Allows the es6 properties to be typed.
+/// <reference lib="es6" />
 
 // @ts-ignore -- Will be resolved runtime.
 import ReactDOM from "https://esm.sh/react-dom@18.2.0/client";
 // @ts-ignore -- Will be resolved runtime.
 import React from "https://esm.sh/react@18.2.0";
 
-const Steps = () => (
-  <div className="steps">
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
-    <div>4</div>
-  </div>
-);
+const Steps = ({ number }: { number: number }) => {
+  const steps = [1, 2, 3, 4];
+
+  return (
+    <div className="steps">
+      {steps.map((step, index) => {
+        const progressHalf = step === number;
+        const progressFull = step <= number;
+        const currentStep = progressHalf || progressFull;
+        const progressPercentage = progressHalf ? 50 : progressFull ? 100 : 0;
+
+        return (
+          <>
+            <div
+              className="circle"
+              style={{
+                color: currentStep ? "#fff" : "#6f6c90",
+                backgroundColor: currentStep ? "#4a3aff" : "",
+              }}
+            >
+              {step}
+            </div>
+            {index !== steps.length - 1 && (
+              <div className="bar">
+                <div
+                  className="progress"
+                  style={{ width: progressPercentage }}
+                />
+              </div>
+            )}
+          </>
+        );
+      })}
+    </div>
+  );
+};
 
 const Container = () => (
   <div className="container">
-    <Steps />
+    <Steps number={1} />
+    <span className="divider" />
   </div>
 );
 
