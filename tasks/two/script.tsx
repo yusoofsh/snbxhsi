@@ -25,6 +25,48 @@ type Page = {
   content: Record<string, Content>;
 };
 
+const pages: Page[] = [
+  {
+    title: "Contact details",
+    description: "Lorem ipsum dolor sit amet consectetur adipisc.",
+    content: {
+      name: { name: "name", label: "Name", type: "text", icon: "./user.svg" },
+      email: {
+        name: "email",
+        label: "Email",
+        type: "email",
+        icon: "./mail.svg",
+      },
+      phone: {
+        name: "phone",
+        label: "Phone Number",
+        type: "tel",
+        icon: "./phone.svg",
+      },
+      company: {
+        name: "company",
+        label: "Company",
+        type: "text",
+        icon: "./building.svg",
+      },
+    },
+  },
+  { title: "", description: "", content: {} },
+  { title: "", description: "", content: {} },
+  { title: "", description: "", content: {} },
+];
+
+const Button = () => {
+  return (
+    <div className="action">
+      <button type="button" className="primary">
+        Next step
+      </button>
+      ;
+    </div>
+  );
+};
+
 const Form = ({ number }: { number: number }) => {
   const { title, description, content } = pages[number - 1];
 
@@ -139,43 +181,15 @@ const Header = () => (
   </div>
 );
 
-const App = () => (
-  <>
-    <Header />
-    <Container />
-  </>
-);
-
-const pages: Page[] = [
-  {
-    title: "Contact details",
-    description: "Lorem ipsum dolor sit amet consectetur adipisc.",
-    content: {
-      name: { name: "name", label: "Name", type: "text", icon: "./user.svg" },
-      email: {
-        name: "email",
-        label: "Email",
-        type: "email",
-        icon: "./mail.svg",
-      },
-      phone: {
-        name: "phone",
-        label: "Phone Number",
-        type: "tel",
-        icon: "./phone.svg",
-      },
-      company: {
-        name: "company",
-        label: "Company",
-        type: "text",
-        icon: "./building.svg",
-      },
-    },
-  },
-  { title: "", description: "", content: {} },
-  { title: "", description: "", content: {} },
-  { title: "", description: "", content: {} },
-];
+const App = () => {
+  return (
+    <>
+      <Header />
+      <Container />
+      <Button />
+    </>
+  );
+};
 
 const target = document.getElementById("root");
 if (!target) throw "Target element #root not found";
