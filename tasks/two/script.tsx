@@ -7,15 +7,18 @@
  * The external dependencies used by this application were only React and Babel. It is allowed (https://t.me/c/1808349325/143).
  */
 
+// Disable "any" types checking.
+// deno-lint-ignore-file no-explicit-any
+
 // Allows the document object to be typed.
 /// <reference lib="dom" />
 // Allows the es6 properties to be typed.
-/// <reference lib="es6" />
+/// <reference lib="es2023" />
 
 // @ts-ignore -- Will be resolved runtime.
 import ReactDOM from "https://esm.sh/react-dom@18.2.0/client";
 // @ts-ignore -- Will be resolved runtime.
-import React from "https://esm.sh/react@18.2.0";
+import React, { useRef, useState } from "https://esm.sh/react@18.2.0";
 
 type Content = { name: string; label: string; type: string; icon: string };
 
@@ -59,65 +62,117 @@ const pages: Page[] = [
 const NextButton = () => {
   return (
     <div className="button-container">
-      <button type="button" className="button-primary">
+      <button type="submit" className="button-primary">
         Next step
       </button>
     </div>
   );
 };
 
-const Form = ({ number }: { number: number }) => {
+const Form = (
+  { number, formData, formError, formInputRef, handleInputChange }: {
+    number: number;
+    formData: any;
+    formError: any;
+    formInputRef: any;
+    handleInputChange: (e: any) => void;
+  },
+) => {
   const { title, description, content } = pages[number - 1];
 
   return (
-    <form>
+    <>
       <h2 className="title">{title}</h2>
       <p className="description">{description}</p>
       <div className="row">
         <div className="column">
-          <p>{content.name.label}</p>
+          <p style={{ color: formError.name ? "#962dff" : "" }}>
+            {content.name.label}
+          </p>
           <input
-            name={content.name.name}
+            ref={formInputRef.name}
+            name="name"
             className="input-text"
             placeholder={content.name.label}
             type={content.name.type}
-            style={{ backgroundImage: `url(${content.name.icon})` }}
+            style={{
+              backgroundImage: `url(${content.name.icon})`,
+              borderColor: formError.name ? "#962dff" : "",
+            }}
+            value={formData.name}
+            onChange={handleInputChange}
           />
+          {formError.name && (
+            <span className="input-error">{formError.name}</span>
+          )}
         </div>
         <div className="column">
-          <p>{content.email.label}</p>
+          <p style={{ color: formError.email ? "#962dff" : "" }}>
+            {content.email.label}
+          </p>
           <input
-            name={content.email.name}
+            ref={formInputRef.email}
+            name="email"
             className="input-text"
             placeholder={content.email.label}
             type={content.email.type}
-            style={{ backgroundImage: `url(${content.email.icon})` }}
-          />
+            style={{
+              backgroundImage: `url(${content.email.icon})`,
+              borderColor: formError.email ? "#962dff" : "",
+            }}
+            value={formData.email}
+            onChange={handleInputChange}
+          />{" "}
+          {formError.email && (
+            <span className="input-error">{formError.email}</span>
+          )}
         </div>
       </div>
       <div className="row">
         <div className="column">
-          <p>{content.phone.label}</p>
+          <p style={{ color: formError.phone ? "#962dff" : "" }}>
+            {content.phone.label}
+          </p>
           <input
-            name={content.phone.name}
+            ref={formInputRef.phone}
+            name="phone"
             className="input-text"
             placeholder={content.phone.label}
             type={content.phone.type}
-            style={{ backgroundImage: `url(${content.phone.icon})` }}
+            style={{
+              backgroundImage: `url(${content.phone.icon})`,
+              borderColor: formError.phone ? "#962dff" : "",
+            }}
+            value={formData.phone}
+            onChange={handleInputChange}
           />
+          {formError.phone && (
+            <span className="input-error">{formError.phone}</span>
+          )}
         </div>
         <div className="column">
-          <p>{content.company.label}</p>
+          <p style={{ color: formError.company ? "#962dff" : "" }}>
+            {content.company.label}
+          </p>
           <input
-            name={content.company.name}
+            ref={formInputRef.company}
+            name="company"
             className="input-text"
             placeholder={content.company.label}
             type={content.company.type}
-            style={{ backgroundImage: `url(${content.company.icon})` }}
+            style={{
+              backgroundImage: `url(${content.company.icon})`,
+              borderColor: formError.company ? "#962dff" : "",
+            }}
+            value={formData.company}
+            onChange={handleInputChange}
           />
+          {formError.company && (
+            <span className="input-error">{formError.company}</span>
+          )}
         </div>
       </div>
-    </form>
+    </>
   );
 };
 
@@ -164,16 +219,110 @@ const Steps = ({ number }: { number: number }) => {
 const Main = () => {
   const number = 1;
 
+  // Refs for input elements
+  const formInputRef = {
+    name: useRef(null),
+    email: useRef(null),
+    phone: useRef(null),
+    company: useRef(null),
+  };
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+  });
+
+  const [formError, setFormError] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+  });
+
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setFormError({ ...formError, [name]: "" });
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+
+    // Form validation
+    const newErrors = {
+      name: formData.name.trim() === "" ? "Name is required" : "",
+      email: formData.email.trim() === ""
+        ? "Email is required"
+        : !formData.email.trim().endsWith("@gmail.com")
+        ? "Email is invalid"
+        : "",
+      phone: formData.phone.trim() === ""
+        ? "Phone number is required"
+        : !formData.phone.trim().match(/^08\d{8,12}$/)
+        ? "Phone number is invalid"
+        : "",
+      company: formData.company.trim() === "" ? "Company is required" : "",
+    };
+
+    setFormError(newErrors);
+
+    // Find the first field with an error
+    let firstErrorField: any = null;
+    for (const [field, error] of Object.entries(newErrors)) {
+      if (error !== "") {
+        switch (field) {
+          case "name":
+            firstErrorField = formInputRef.name.current;
+            break;
+          case "email":
+            firstErrorField = formInputRef.email.current;
+            break;
+          case "phone":
+            firstErrorField = formInputRef.phone.current;
+            break;
+          case "company":
+            firstErrorField = formInputRef.company.current;
+            break;
+          default:
+            break;
+        }
+        break;
+      }
+    }
+
+    // If any field is empty or invalid, stop form submission
+    if (Object.values(newErrors).some((error) => error !== "")) {
+      // Set focus to the field with an error
+      if (firstErrorField) {
+        firstErrorField.focus();
+      }
+      return;
+    }
+
+    // Proceed with form submission
+    console.log("Form submitted:", formData);
+  };
+
   return (
     <div className="main">
-      <div className="form-wrapper">
-        <div className="form-container">
-          <Steps number={number} />
-          <span className="divider" />
-          <Form number={number} />
+      <form onSubmit={handleSubmit}>
+        <div className="form-wrapper">
+          <div className="form-container">
+            <Steps number={number} />
+            <span className="divider" />
+            <Form
+              number={number}
+              formData={formData}
+              formError={formError}
+              formInputRef={formInputRef}
+              handleInputChange={handleInputChange}
+            />
+          </div>
+          <NextButton />
         </div>
-        <NextButton />
-      </div>
+      </form>
     </div>
   );
 };

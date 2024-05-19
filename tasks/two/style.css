@@ -147,8 +147,14 @@ form .input-text {
   background-origin: content-box;
 }
 
-form .input-text-active {
+form .input-text:focus {
+  outline: none;
+  border-color: #962dff;
+}
+
+form .input-error {
   color: #962dff;
+  margin-top: 0.8rem;
 }
 
 .button-container {
