@@ -69,16 +69,30 @@ const NextButton = () => {
   );
 };
 
-const Form = (
-  { number, formData, formError, formInputRef, handleInputChange }: {
-    number: number;
+const ServiceForm = (
+  { meta, formData, formError, formInputRef, handleInputChange }: {
+    meta: any;
     formData: any;
     formError: any;
     formInputRef: any;
     handleInputChange: (e: any) => void;
   },
 ) => {
-  const { title, description, content } = pages[number - 1];
+  const { title, description, content } = meta;
+
+  return <>haha</>;
+};
+
+const ContactForm = (
+  { meta, formData, formError, formInputRef, handleInputChange }: {
+    meta: any;
+    formData: any;
+    formError: any;
+    formInputRef: any;
+    handleInputChange: (e: any) => void;
+  },
+) => {
+  const { title, description, content } = meta;
 
   return (
     <>
@@ -176,13 +190,48 @@ const Form = (
   );
 };
 
-const Steps = ({ number }: { number: number }) => {
+const Form = (
+  { formPage, formData, formError, formInputRef, handleInputChange }: {
+    formPage: number;
+    formData: any;
+    formError: any;
+    formInputRef: any;
+    handleInputChange: (e: any) => void;
+  },
+) => {
+  const meta = pages[formPage - 1];
+
+  return (
+    <>
+      {formPage === 1 && (
+        <ContactForm
+          meta={meta}
+          formData={formData}
+          formError={formError}
+          formInputRef={formInputRef}
+          handleInputChange={handleInputChange}
+        />
+      )}
+      {formPage === 2 && (
+        <ServiceForm
+          meta={meta}
+          formData={formData}
+          formError={formError}
+          formInputRef={formInputRef}
+          handleInputChange={handleInputChange}
+        />
+      )}
+    </>
+  );
+};
+
+const Steps = ({ formPage }: { formPage: number }) => {
   return (
     <div className="steps">
       {pages.map((_, index) => {
         const step = index + 1;
-        const progressHalf = step === number;
-        const progressFull = step <= number;
+        const progressHalf = step === formPage;
+        const progressFull = step <= formPage;
         const currentStep = progressHalf || progressFull;
         const progressPercentage = (() => {
           if (progressHalf) return 50;
@@ -217,9 +266,8 @@ const Steps = ({ number }: { number: number }) => {
 };
 
 const Main = () => {
-  const number = 1;
+  const [formPage, setFormPage] = useState(1);
 
-  // Refs for input elements
   const formInputRef = {
     name: useRef(null),
     email: useRef(null),
@@ -303,6 +351,8 @@ const Main = () => {
 
     // Proceed with form submission
     console.log("Form submitted:", formData);
+
+    setFormPage(formPage + 1);
   };
 
   return (
@@ -310,10 +360,10 @@ const Main = () => {
       <form onSubmit={handleSubmit}>
         <div className="form-wrapper">
           <div className="form-container">
-            <Steps number={number} />
+            <Steps formPage={formPage} />
             <span className="divider" />
             <Form
-              number={number}
+              formPage={formPage}
               formData={formData}
               formError={formError}
               formInputRef={formInputRef}
