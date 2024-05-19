@@ -56,13 +56,12 @@ const pages: Page[] = [
   { title: "", description: "", content: {} },
 ];
 
-const Button = () => {
+const NextButton = () => {
   return (
-    <div className="action">
-      <button type="button" className="primary">
+    <div className="button-container">
+      <button type="button" className="button-primary">
         Next step
       </button>
-      ;
     </div>
   );
 };
@@ -88,7 +87,7 @@ const Form = ({ number }: { number: number }) => {
         <div className="column">
           <p>{content.email.label}</p>
           <input
-            name={content.name.name}
+            name={content.email.name}
             className="input-text"
             placeholder={content.email.label}
             type={content.email.type}
@@ -100,7 +99,7 @@ const Form = ({ number }: { number: number }) => {
         <div className="column">
           <p>{content.phone.label}</p>
           <input
-            name={content.name.name}
+            name={content.phone.name}
             className="input-text"
             placeholder={content.phone.label}
             type={content.phone.type}
@@ -110,7 +109,7 @@ const Form = ({ number }: { number: number }) => {
         <div className="column">
           <p>{content.company.label}</p>
           <input
-            name={content.name.name}
+            name={content.company.name}
             className="input-text"
             placeholder={content.company.label}
             type={content.company.type}
@@ -130,10 +129,14 @@ const Steps = ({ number }: { number: number }) => {
         const progressHalf = step === number;
         const progressFull = step <= number;
         const currentStep = progressHalf || progressFull;
-        const progressPercentage = progressHalf ? 50 : progressFull ? 100 : 0;
+        const progressPercentage = (() => {
+          if (progressHalf) return 50;
+          if (progressFull) return 100;
+          return 0;
+        })();
 
         return (
-          <>
+          <React.Fragment key={step}>
             <div
               className="circle"
               style={{
@@ -147,25 +150,30 @@ const Steps = ({ number }: { number: number }) => {
               <div className="bar">
                 <div
                   className="progress"
-                  style={{ width: progressPercentage }}
+                  style={{ width: `${progressPercentage}%` }}
                 />
               </div>
             )}
-          </>
+          </React.Fragment>
         );
       })}
     </div>
   );
 };
 
-const Container = () => {
+const Main = () => {
   const number = 1;
 
   return (
-    <div className="container">
-      <Steps number={number} />
-      <span className="divider" />
-      <Form number={number} />
+    <div className="main">
+      <div className="form-wrapper">
+        <div className="form-container">
+          <Steps number={number} />
+          <span className="divider" />
+          <Form number={number} />
+        </div>
+        <NextButton />
+      </div>
     </div>
   );
 };
@@ -185,14 +193,13 @@ const App = () => {
   return (
     <>
       <Header />
-      <Container />
-      <Button />
+      <Main />
     </>
   );
 };
 
 const target = document.getElementById("root");
-if (!target) throw "Target element #root not found";
+if (!target) throw new Error("Target element #root not found");
 
 const root = ReactDOM.createRoot(target);
 
