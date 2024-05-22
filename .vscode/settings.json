@@ -3,4 +3,7 @@
   "deno.cacheOnSave": true,
   "deno.unstable": true,
   "deno.lint": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
 }

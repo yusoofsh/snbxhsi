@@ -52,25 +52,25 @@ const steps = [
     content: {
       service: {
         development: {
-          name: "development",
+          name: "Development",
           label: "Development",
           type: "radio",
           icon: "./development.svg",
         },
         webDesign: {
-          name: "web-design",
+          name: "Web Design",
           label: "Web Design",
           type: "radio",
           icon: "./web-design.svg",
         },
         marketing: {
-          name: "marketing",
+          name: "Marketing",
           label: "Marketing",
           type: "radio",
           icon: "./marketing.svg",
         },
         other: {
-          name: "other",
+          name: "Other",
           label: "Other",
           type: "radio",
           icon: "./other.svg",
@@ -84,36 +84,42 @@ const steps = [
     content: {
       budget: {
         minimal: {
-          name: "minimal",
+          name: "5000",
           label: "$5.000 - $10.000",
           type: "radio",
         },
         low: {
-          name: "low",
+          name: "10000",
           label: "$10.000 - $20.000",
           type: "radio",
         },
         moderate: {
-          name: "moderate",
+          name: "20000",
           label: "$20.000 - $50.000",
           type: "radio",
         },
         high: {
-          name: "high",
+          name: "50000",
           label: "$50.000 +",
           type: "radio",
         },
       },
     },
   },
-  { title: "", description: "", content: {} },
+  {
+    title: "Submit your quote request",
+    description:
+      "Please review all the information you previously typed in the past steps, and if all is okay, submit your message to receive a project quote in 24 - 48 hours.",
+    content: { check: { icon: "./checkmark.svg" } },
+  },
 ];
 
 const Button = (
-  { text, primary, onClick }: {
+  { text, primary, onClick, ...props }: {
     text?: string;
     primary?: boolean;
     onClick?: () => void;
+    [key: string]: any;
   },
 ) => {
   return (
@@ -121,9 +127,27 @@ const Button = (
       type={primary ? "submit" : "button"}
       className={primary ? "button-primary" : "button-outline"}
       onClick={onClick}
+      {...props}
     >
       {text}
     </button>
+  );
+};
+
+const SubmitForm = (
+  { meta }: {
+    meta: any;
+  },
+) => {
+  const { title, description, content } = meta;
+
+  return (
+    <div className="submit-container">
+      <img src={content.check.icon} alt="checkmark" />
+      <h2 className="title submit">{title}</h2>
+      <p className="description submit">{description}</p>
+      <Button text="Submit" style={{ marginTop: "2rem" }} primary />
+    </div>
   );
 };
 
@@ -144,9 +168,7 @@ const BudgetForm = (
         {Object.values(content.budget).map((budget: any) => (
           <label
             key={budget.name}
-            className={`card${
-              formData.budget === budget.name ? " active" : ""
-            }`}
+            className={`card${formData.budget === budget.name ? " active" : ""}`}
           >
             <input
               name="budget"
@@ -190,9 +212,7 @@ const ServiceForm = (
         {Object.values(content.service).map((service: any) => (
           <label
             key={service.name}
-            className={`card${
-              formData.service === service.name ? " active" : ""
-            }`}
+            className={`card${formData.service === service.name ? " active" : ""}`}
           >
             <input
               name="service"
@@ -359,6 +379,11 @@ const Form = (
           handleInputChange={handleInputChange}
         />
       )}
+      {formStep === 4 && (
+        <SubmitForm
+          meta={meta}
+        />
+      )}
     </>
   );
 };
@@ -404,7 +429,7 @@ const Steps = ({ formStep }: { formStep: number }) => {
 };
 
 const Main = () => {
-  const [formStep, setFormStep] = useState(3);
+  const [formStep, setFormStep] = useState(1);
 
   const formInputRef = {
     name: useRef(null),
@@ -418,7 +443,8 @@ const Main = () => {
     email: "",
     phone: "",
     company: "",
-    service: "development",
+    service: "Development",
+    budget: "50000",
   });
 
   const [formError, setFormError] = useState({
@@ -443,13 +469,13 @@ const Main = () => {
       email: formData.email.trim() === ""
         ? "Email is required"
         : !formData.email.trim().endsWith("@gmail.com")
-        ? "Email is invalid"
-        : "",
+          ? "Email is invalid"
+          : "",
       phone: formData.phone.trim() === ""
         ? "Phone number is required"
         : !formData.phone.trim().match(/^08\d{8,12}$/)
-        ? "Phone number is invalid"
-        : "",
+          ? "Phone number is invalid"
+          : "",
       company: formData.company.trim() === "" ? "Company is required" : "",
     };
 
@@ -488,10 +514,14 @@ const Main = () => {
       return;
     }
 
-    // Proceed with form submission
-    console.log("Form submitted:", formData);
+    // Check if not on last step
+    if (formStep !== steps.length) {
+      setFormStep(formStep + 1);
+      return
+    }
 
-    setFormStep(formStep + 1);
+    // Proceed with form submission
+    alert(JSON.stringify(formData));
   };
 
   return (
@@ -519,7 +549,7 @@ const Main = () => {
                 onClick={() => setFormStep(formStep - 1)}
               />
             )}
-            {formStep <= steps.length - 1 && (
+            {formStep < steps.length && (
               <Button
                 text="Next step"
                 primary
@@ -536,9 +566,9 @@ const Header = () => (
   <div className="text-center">
     <h1>Get a project quote</h1>
     <p className="subtitle">
-      Please fill the form below to receive a quote for your project.
+      Please fill the form below to receive a quote for your project. Feel
       <br />
-      Feel free to add as much detail as needed.
+      free to add as much detail as needed.
     </p>
   </div>
 );
