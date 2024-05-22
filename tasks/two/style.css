@@ -159,7 +159,8 @@ form .input-error {
 
 .button-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .button-primary {
@@ -169,4 +170,67 @@ form .input-error {
   border-radius: 56px;
   border: none;
   cursor: pointer;
+}
+
+.button-outline {
+  padding: 16px 36px;
+  color: #4a3aff;
+  background: #fff;
+  border-radius: 56px;
+  border: 1px solid #4a3aff;
+  cursor: pointer;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 2.8rem;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  border: 1px solid #eff0f7;
+  box-shadow: 0px 2px 6px rgba(19, 18, 66, 0.07);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+}
+
+.card:hover {
+  border-color: #ddd;
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.2);
+}
+
+.card .radio-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card .radio-input:checked + .card {
+  border-color: #4a3aff;
+  box-shadow: 0 0 10px #4a3aff;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 16px;
+}
+
+.card.active {
+  border-color: #4a3aff;
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.2);
+}
+
+.icon-circle {
+  background-color: #e0e0ff;
+  border-radius: 50%;
+  width: 66px;
+  height: 66px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -16,19 +16,11 @@
 /// <reference lib="es2023" />
 
 // @ts-ignore -- Will be resolved runtime.
-import ReactDOM from "https://esm.sh/react-dom@18.2.0/client";
+import ReactDOM from "https://esm.sh/react-dom@18.3.1/client";
 // @ts-ignore -- Will be resolved runtime.
-import React, { useRef, useState } from "https://esm.sh/react@18.2.0";
+import React, { useRef, useState } from "https://esm.sh/react@18.3.1";
 
-type Content = { name: string; label: string; type: string; icon: string };
-
-type Page = {
-  title: string;
-  description: string;
-  content: Record<string, Content>;
-};
-
-const pages: Page[] = [
+const steps = [
   {
     title: "Contact details",
     description: "Lorem ipsum dolor sit amet consectetur adipisc.",
@@ -54,18 +46,57 @@ const pages: Page[] = [
       },
     },
   },
-  { title: "", description: "", content: {} },
+  {
+    title: "Our services",
+    description: "Please select which service you are interested in.",
+    content: {
+      service: {
+        development: {
+          name: "development",
+          label: "Development",
+          type: "radio",
+          icon: "./development.svg",
+        },
+        webDesign: {
+          name: "web-design",
+          label: "Web Design",
+          type: "radio",
+          icon: "./web-design.svg",
+        },
+        marketing: {
+          name: "marketing",
+          label: "Marketing",
+          type: "radio",
+          icon: "./marketing.svg",
+        },
+        other: {
+          name: "other",
+          label: "Other",
+          type: "radio",
+          icon: "./other.svg",
+        },
+      },
+    },
+  },
   { title: "", description: "", content: {} },
   { title: "", description: "", content: {} },
 ];
 
-const NextButton = () => {
+const Button = (
+  { text, primary, onClick }: {
+    text?: string;
+    primary?: boolean;
+    onClick?: () => void;
+  },
+) => {
   return (
-    <div className="button-container">
-      <button type="submit" className="button-primary">
-        Next step
-      </button>
-    </div>
+    <button
+      type={primary ? "submit" : "button"}
+      className={primary ? "button-primary" : "button-outline"}
+      onClick={onClick}
+    >
+      {text}
+    </button>
   );
 };
 
@@ -80,7 +111,38 @@ const ServiceForm = (
 ) => {
   const { title, description, content } = meta;
 
-  return <>haha</>;
+  return (
+    <>
+      <h2 className="title">{title}</h2>
+      <p className="description">{description}</p>
+      <div className="card-grid">
+        {Object.values(content.service).map((service: any) => (
+          <label
+            key={service.name}
+            className={`card${
+              formData.service === service.name ? " active" : ""
+            }`}
+          >
+            <input
+              name="service"
+              type={service.type}
+              value={service.name}
+              className="radio-input"
+              checked={formData.service === service.name}
+              onChange={handleInputChange}
+            />
+            <div className="icon-circle">
+              <img
+                src={service.icon}
+                alt="service icon"
+              />
+            </div>
+            <div className="card-title">{service.label}</div>
+          </label>
+        ))}
+      </div>
+    </>
+  );
 };
 
 const ContactForm = (
@@ -136,7 +198,7 @@ const ContactForm = (
             }}
             value={formData.email}
             onChange={handleInputChange}
-          />{" "}
+          />
           {formError.email && (
             <span className="input-error">{formError.email}</span>
           )}
@@ -191,19 +253,19 @@ const ContactForm = (
 };
 
 const Form = (
-  { formPage, formData, formError, formInputRef, handleInputChange }: {
-    formPage: number;
+  { formStep, formData, formError, formInputRef, handleInputChange }: {
+    formStep: number;
     formData: any;
     formError: any;
     formInputRef: any;
     handleInputChange: (e: any) => void;
   },
 ) => {
-  const meta = pages[formPage - 1];
+  const meta = steps[formStep - 1];
 
   return (
     <>
-      {formPage === 1 && (
+      {formStep === 1 && (
         <ContactForm
           meta={meta}
           formData={formData}
@@ -212,7 +274,7 @@ const Form = (
           handleInputChange={handleInputChange}
         />
       )}
-      {formPage === 2 && (
+      {formStep === 2 && (
         <ServiceForm
           meta={meta}
           formData={formData}
@@ -225,13 +287,13 @@ const Form = (
   );
 };
 
-const Steps = ({ formPage }: { formPage: number }) => {
+const Steps = ({ formStep }: { formStep: number }) => {
   return (
     <div className="steps">
-      {pages.map((_, index) => {
+      {steps.map((_, index) => {
         const step = index + 1;
-        const progressHalf = step === formPage;
-        const progressFull = step <= formPage;
+        const progressHalf = step === formStep;
+        const progressFull = step <= formStep;
         const currentStep = progressHalf || progressFull;
         const progressPercentage = (() => {
           if (progressHalf) return 50;
@@ -250,7 +312,7 @@ const Steps = ({ formPage }: { formPage: number }) => {
             >
               {step}
             </div>
-            {index !== pages.length - 1 && (
+            {index !== steps.length - 1 && (
               <div className="bar">
                 <div
                   className="progress"
@@ -266,7 +328,7 @@ const Steps = ({ formPage }: { formPage: number }) => {
 };
 
 const Main = () => {
-  const [formPage, setFormPage] = useState(1);
+  const [formStep, setFormStep] = useState(1);
 
   const formInputRef = {
     name: useRef(null),
@@ -280,6 +342,7 @@ const Main = () => {
     email: "",
     phone: "",
     company: "",
+    service: "development",
   });
 
   const [formError, setFormError] = useState({
@@ -352,7 +415,7 @@ const Main = () => {
     // Proceed with form submission
     console.log("Form submitted:", formData);
 
-    setFormPage(formPage + 1);
+    setFormStep(formStep + 1);
   };
 
   return (
@@ -360,17 +423,28 @@ const Main = () => {
       <form onSubmit={handleSubmit}>
         <div className="form-wrapper">
           <div className="form-container">
-            <Steps formPage={formPage} />
+            <Steps formStep={formStep} />
             <span className="divider" />
             <Form
-              formPage={formPage}
+              formStep={formStep}
               formData={formData}
               formError={formError}
               formInputRef={formInputRef}
               handleInputChange={handleInputChange}
             />
           </div>
-          <NextButton />
+          <div
+            className="button-container"
+            style={formStep === 1 ? { justifyContent: "flex-end" } : {}}
+          >
+            {formStep > 1 && (
+              <Button
+                text="Previous step"
+                onClick={() => setFormStep(formStep - 1)}
+              />
+            )}
+            {formStep <= steps.length - 1 && <Button text="Next step" primary />}
+          </div>
         </div>
       </form>
     </div>
