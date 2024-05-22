@@ -78,7 +78,34 @@ const steps = [
       },
     },
   },
-  { title: "", description: "", content: {} },
+  {
+    title: "What’s your project budget?",
+    description: "Please select the project budget range you have in mind.",
+    content: {
+      budget: {
+        minimal: {
+          name: "minimal",
+          label: "$5.000 - $10.000",
+          type: "radio",
+        },
+        low: {
+          name: "low",
+          label: "$10.000 - $20.000",
+          type: "radio",
+        },
+        moderate: {
+          name: "moderate",
+          label: "$20.000 - $50.000",
+          type: "radio",
+        },
+        high: {
+          name: "high",
+          label: "$50.000 +",
+          type: "radio",
+        },
+      },
+    },
+  },
   { title: "", description: "", content: {} },
 ];
 
@@ -100,12 +127,56 @@ const Button = (
   );
 };
 
-const ServiceForm = (
-  { meta, formData, formError, formInputRef, handleInputChange }: {
+const BudgetForm = (
+  { meta, formData, handleInputChange }: {
     meta: any;
     formData: any;
-    formError: any;
-    formInputRef: any;
+    handleInputChange: (e: any) => void;
+  },
+) => {
+  const { title, description, content } = meta;
+
+  return (
+    <>
+      <h2 className="title">{title}</h2>
+      <p className="description">{description}</p>
+      <div className="card-grid">
+        {Object.values(content.budget).map((budget: any) => (
+          <label
+            key={budget.name}
+            className={`card${
+              formData.budget === budget.name ? " active" : ""
+            }`}
+          >
+            <input
+              name="budget"
+              type={budget.type}
+              value={budget.name}
+              checked={formData.budget === budget.name}
+              onChange={handleInputChange}
+            />
+            <div
+              className="card-title"
+              style={{
+                width: "auto",
+                height: "66px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {budget.label}
+            </div>
+          </label>
+        ))}
+      </div>
+    </>
+  );
+};
+
+const ServiceForm = (
+  { meta, formData, handleInputChange }: {
+    meta: any;
+    formData: any;
     handleInputChange: (e: any) => void;
   },
 ) => {
@@ -127,9 +198,9 @@ const ServiceForm = (
               name="service"
               type={service.type}
               value={service.name}
-              className="radio-input"
               checked={formData.service === service.name}
               onChange={handleInputChange}
+              style={{ display: "none" }}
             />
             <div className="icon-circle">
               <img
@@ -278,8 +349,13 @@ const Form = (
         <ServiceForm
           meta={meta}
           formData={formData}
-          formError={formError}
-          formInputRef={formInputRef}
+          handleInputChange={handleInputChange}
+        />
+      )}
+      {formStep === 3 && (
+        <BudgetForm
+          meta={meta}
+          formData={formData}
           handleInputChange={handleInputChange}
         />
       )}
@@ -328,7 +404,7 @@ const Steps = ({ formStep }: { formStep: number }) => {
 };
 
 const Main = () => {
-  const [formStep, setFormStep] = useState(1);
+  const [formStep, setFormStep] = useState(3);
 
   const formInputRef = {
     name: useRef(null),
@@ -443,7 +519,12 @@ const Main = () => {
                 onClick={() => setFormStep(formStep - 1)}
               />
             )}
-            {formStep <= steps.length - 1 && <Button text="Next step" primary />}
+            {formStep <= steps.length - 1 && (
+              <Button
+                text="Next step"
+                primary
+              />
+            )}
           </div>
         </div>
       </form>

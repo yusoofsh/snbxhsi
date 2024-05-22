@@ -23,6 +23,11 @@ input {
   box-shadow: 0px 2px 6px 0px rgba(19, 18, 66, 0.07);
 }
 
+input[type="radio"] {
+  accent-color: #4a3aff;
+  margin: 0;
+}
+
 #root {
   display: flex;
   flex-direction: column;
@@ -196,22 +201,12 @@ form .input-error {
   border-radius: 16px;
   padding: 20px;
   text-align: center;
+  cursor: pointer;
 }
 
 .card:hover {
   border-color: #ddd;
   box-shadow: 0 0 10px rgba(108, 99, 255, 0.2);
-}
-
-.card .radio-input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.card .radio-input:checked + .card {
-  border-color: #4a3aff;
-  box-shadow: 0 0 10px #4a3aff;
 }
 
 .card-title {
