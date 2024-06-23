@@ -1,5 +1,6 @@
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import { Open_Sans as OpenSans } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   description: "HSI Sandbox Level 3 Quiz",
 };
 
-const openSans = Open_Sans({
+const openSans = OpenSans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-open-sans",
@@ -16,7 +17,7 @@ const openSans = Open_Sans({
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en">

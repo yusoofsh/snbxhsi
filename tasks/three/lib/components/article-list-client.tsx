@@ -42,7 +42,7 @@ export default function ArticleList({ sort }: Readonly<{ sort: string }>) {
   }, []);
 
   useEffect(() => {
-    if (articles?.data && articles.meta.pagination.page === page) {
+    if (articles?.data) {
       updateArticlesData(articles.data);
     }
   }, [articles, page, updateArticlesData]);
@@ -53,25 +53,22 @@ export default function ArticleList({ sort }: Readonly<{ sort: string }>) {
     }
   }, [articles?.meta.pagination.totalPages]);
 
-  const getButtonText = useMemo(() => {
-    if (isLoading) return "Loading...";
-    if (page !== totalPages) return "Load more";
-    return "No more articles";
-  }, [isLoading, page, totalPages]);
-
   return (
     <>
-      {page !== 1 &&
-        articlesDataRef.current.map((article) => (
-          <ArticleItem key={article.id} {...article} />
-        ))}
-      <button
-        disabled={page === totalPages || isLoading}
-        onClick={loadMoreArticles}
-        className="self-center px-9 py-3 text-xl text-[#FF5480] border-2 border-[#FF5480] border-solid rounded-full"
-      >
-        {getButtonText}
-      </button>
+      {page !== 1
+        ? articlesDataRef.current.map((article) => (
+            <ArticleItem key={article.id} {...article} />
+          ))
+        : null}
+      {page !== totalPages || isLoading ? (
+        <button
+          onClick={loadMoreArticles}
+          disabled={isLoading}
+          className="self-center px-9 py-3 text-xl text-[#FF5480] border-2 border-[#FF5480] border-solid rounded-full"
+        >
+          {isLoading ? "Loading..." : "Load more"}
+        </button>
+      ) : null}
     </>
   );
 }
