@@ -1,5 +1,5 @@
 {
-  "deno.enable": true,
+  "deno.enablePaths": ["./../tasks/two/"],
   "deno.cacheOnSave": true,
   "deno.unstable": true,
   "deno.lint": true,
