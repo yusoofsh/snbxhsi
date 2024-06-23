@@ -1,11 +1,16 @@
 import type { Article } from "@/lib/types/article";
 import Image from "next/image";
 
-export default function ArticleItem({ author, category, title, thumbnail }: Article) {
+export default function ArticleItem({
+  author,
+  category,
+  title,
+  thumbnail,
+}: Readonly<Article>) {
   return (
     <article className="flex flex-col">
       <Image
-        loading="lazy"
+        priority
         src={thumbnail}
         alt={title}
         width={900}

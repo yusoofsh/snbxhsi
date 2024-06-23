@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Open_Sans } from 'next/font/google'
+import { Open_Sans } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 };
 
 const openSans = Open_Sans({
-  subsets: ['latin'],
-  display: 'swap',
+  subsets: ["latin"],
+  display: "swap",
   variable: "--font-open-sans",
-})
+});
 
 export default function RootLayout({
   children,
@@ -20,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${openSans.variable} font-sans py-4 px-8 font-semibold`}>
+      <body
+        className={`${openSans.variable} font-sans px-24 py-8 font-semibold`}
+      >
         {children}
       </body>
     </html>

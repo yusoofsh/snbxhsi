@@ -1,3 +1,3 @@
-type SearchParams = { [key: string]: string | undefined };
-
-export default SearchParams;
+export default interface SearchParams {
+  [key: string]: string | undefined;
+}
