@@ -14,7 +14,9 @@ const fetchArticles = (sort: string, page: number) => {
     .then(({ data, meta }) => ({ data, meta }));
 };
 
-export default function ArticleList({ sort }: Readonly<{ sort: string }>) {
+export default function ArticleListClient({
+  sort,
+}: Readonly<{ sort: string }>) {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [articlesData, setArticlesData] = useState<Article[]>([]);

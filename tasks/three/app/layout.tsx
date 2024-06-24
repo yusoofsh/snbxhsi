@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Open_Sans as OpenSans } from "next/font/google";
+import Header from "@/lib/components/header";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body
         className={`${openSans.variable} font-sans px-56 py-8 font-semibold`}
       >
+        <Header />
         {children}
       </body>
     </html>

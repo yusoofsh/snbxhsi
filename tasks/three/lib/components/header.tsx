@@ -1,10 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 
-export default function Header({ sort }: Readonly<{ sort: string }>) {
+export default function Header() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const sort = searchParams.get("sort") ?? "new";
+  const disableNav = pathname !== "/";
+
   return (
     <header className="flex">
-      <nav className="flex gap-8 basis-5/12 items-center">
+      <nav
+        className="flex gap-8 basis-5/12 items-center"
+        style={{ visibility: disableNav ? "hidden" : "unset" }}
+      >
         <Link
           className={`px-4 py-1.5 rounded-[10px] ${sort === "popular" ? "bg-[#FF5480] text-white" : ""}`}
           href={"/?sort=popular"}
@@ -19,13 +30,15 @@ export default function Header({ sort }: Readonly<{ sort: string }>) {
         </Link>
       </nav>
       <div className="flex justify-center items-center basis-2/12">
-        <Image
-          src="/bahram.svg"
-          alt="Bahram logo"
-          width={99}
-          height={29}
-          priority
-        />
+        <Link href="/">
+          <Image
+            src="/bahram.svg"
+            alt="Bahram logo"
+            width={99}
+            height={29}
+            priority
+          />
+        </Link>
       </div>
       <div className="basis-5/12" />
     </header>
