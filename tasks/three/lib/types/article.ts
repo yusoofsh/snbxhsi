@@ -31,11 +31,16 @@ interface Article {
   slug: string;
   title: string;
   summary: string;
+  content: string | undefined;
 }
 
-interface Response {
+interface ArticleListResponse {
   meta: Meta;
   data: Article[];
 }
 
-export type { Response, Article };
+interface ArticleItemResponse {
+  data: Article;
+}
+
+export type { ArticleListResponse, ArticleItemResponse, Article };

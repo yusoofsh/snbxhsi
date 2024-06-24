@@ -1,16 +1,14 @@
 "use client";
 
-import type { Article, Response } from "@/lib/types/article";
+import type { Article, ArticleListResponse } from "@/lib/types/article";
 import ArticleItem from "@/lib/components/article-item";
 import useSWR from "swr";
 import { useEffect, useState, useCallback, useRef, useMemo } from "react";
-
-const constructUrl = (sort: string, page: number) =>
-  `https://hsi-sandbox.vercel.app/api/articles?sort=${sort ?? "new"}&page=${page ?? 1}`;
+import { constructUrlArticleList } from "@/lib/utils";
 
 const fetchArticles = (sort: string, page: number) => {
-  return fetch(constructUrl(sort, page))
-    .then((response) => response.json() as Promise<Response>)
+  return fetch(constructUrlArticleList({ sort, page }))
+    .then((response) => response.json() as Promise<ArticleListResponse>)
     .then(({ data, meta }) => ({ data, meta }));
 };
 
@@ -23,7 +21,7 @@ export default function ArticleListClient({
   const articlesDataRef = useRef(articlesData);
 
   const memoizedUrl = useMemo(
-    () => (page !== 1 ? constructUrl(sort, page) : null),
+    () => (page !== 1 ? constructUrlArticleList({ sort, page }) : null),
     [sort, page]
   );
 

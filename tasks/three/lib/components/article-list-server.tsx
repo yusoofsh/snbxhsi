@@ -1,5 +1,5 @@
-import type { Response } from "@/lib/types/article";
 import ArticleItem from "@/lib/components/article-item";
+import type { ArticleListResponse } from "@/lib/types/article";
 
 async function getArticles(sort: string) {
   const response = await fetch(
@@ -10,7 +10,7 @@ async function getArticles(sort: string) {
     throw new Error("Failed to load");
   }
 
-  const { data, meta } = (await response.json()) as Response;
+  const { data, meta } = (await response.json()) as ArticleListResponse;
 
   // console.log(articles);
 

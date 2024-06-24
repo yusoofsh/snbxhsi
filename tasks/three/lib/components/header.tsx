@@ -11,7 +11,7 @@ export default function Header() {
   const disableNav = pathname !== "/";
 
   return (
-    <header className="flex">
+    <header className="flex pt-8 px-24">
       <nav
         className="flex gap-8 basis-5/12 items-center"
         style={{ visibility: disableNav ? "hidden" : "unset" }}
