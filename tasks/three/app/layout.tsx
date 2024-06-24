@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${openSans.variable} font-sans px-24 py-8 font-semibold`}
+        className={`${openSans.variable} font-sans px-56 py-8 font-semibold`}
       >
         {children}
       </body>
