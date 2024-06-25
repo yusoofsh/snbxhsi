@@ -3,10 +3,8 @@ import Main from "@/lib/components/main";
 import Header from "@/lib/components/header";
 
 export default function Home({
-  searchParams,
+  searchParams: { sort },
 }: Readonly<{ searchParams: SearchParams }>) {
-  const sort = searchParams.sort ?? "new";
-
   return (
     <>
       <Header />

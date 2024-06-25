@@ -10,15 +10,13 @@ export default function ArticleThumbnail({
   className?: string;
 }>) {
   return (
-    <div className={`${className}`}>
-      <Image
-        priority
-        src={src}
-        alt={alt}
-        width={900}
-        height={600}
-        className="rounded-lg w-full h-full object-cover"
-      />
-    </div>
+    <Image
+      priority
+      src={src}
+      alt={alt}
+      width={900}
+      height={600}
+      className={`w-full h-full object-cover ${className}`}
+    />
   );
 }

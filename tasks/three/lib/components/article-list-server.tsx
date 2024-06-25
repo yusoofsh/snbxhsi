@@ -2,9 +2,7 @@ import ArticleItem from "@/lib/components/article-item";
 import { getArticleList } from "@/lib/utils";
 import { notFound } from "next/navigation";
 
-export default async function ArticleListServer({
-  sort,
-}: Readonly<{ sort: string }>) {
+export default async function ArticleListServer({ sort }: Readonly<{ sort?: string }>) {
   const articles = await getArticleList({ sort });
 
   if (!articles) {
@@ -12,6 +10,6 @@ export default async function ArticleListServer({
   }
 
   return articles.map((article) => (
-    <ArticleItem key={article.id} {...article} />
+    <ArticleItem key={`${article.id}-${article.slug}`} {...article} />
   ));
 }

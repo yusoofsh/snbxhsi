@@ -13,10 +13,10 @@ export default function ArticleItem({
   return (
     <Link href={`/${slug}`}>
       <article className="flex flex-col">
-        <ArticleThumbnail src={thumbnail} alt={title} />
+        <ArticleThumbnail src={thumbnail} alt={title} className="rounded-lg" />
         <div className="self-start mt-6">
           <ArticleSubtitle author={author} category={category} />
-          <h2 className="mt-2 text-4xl tracking-tight text-neutral-900">
+          <h2 className="mt-2 text-4xl tracking-tight text-neutral-900 rounded-lg">
             {title}
           </h2>
         </div>

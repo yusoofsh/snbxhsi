@@ -7,7 +7,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 export default function Header() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const sort = searchParams.get("sort") ?? "new";
+  const sort = searchParams.get("sort");
   const disableNav = pathname !== "/";
 
   return (
@@ -23,7 +23,7 @@ export default function Header() {
           Popular
         </Link>
         <Link
-          className={`px-4 py-1.5 rounded-[10px] ${sort === "new" ? "bg-[#FF5480] text-white" : ""}`}
+          className={`px-4 py-1.5 rounded-[10px] ${sort !== "popular" ? "bg-[#FF5480] text-white" : ""}`}
           href={"/?sort=new"}
         >
           New
