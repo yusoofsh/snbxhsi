@@ -1,28 +1,17 @@
 import ArticleItem from "@/lib/components/article-item";
-import type { ArticleListResponse } from "@/lib/types/article";
-
-async function getArticles(sort: string) {
-  const response = await fetch(
-    `https://hsi-sandbox.vercel.app/api/articles?sort=${sort}`
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to load");
-  }
-
-  const { data, meta } = (await response.json()) as ArticleListResponse;
-
-  // console.log(articles);
-
-  return { data, meta };
-}
+import { getArticleList } from "@/lib/utils";
+import { notFound } from "next/navigation";
 
 export default async function ArticleListServer({
   sort,
 }: Readonly<{ sort: string }>) {
-  const articles = await getArticles(sort);
+  const articles = await getArticleList({ sort });
 
-  return articles.data.map((article) => (
+  if (!articles) {
+    return notFound();
+  }
+
+  return articles.map((article) => (
     <ArticleItem key={article.id} {...article} />
   ));
 }

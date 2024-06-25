@@ -4,16 +4,20 @@ export default function ArticleThumbnail({
   src,
   alt,
   className,
-}: Readonly<{ src: string; alt: string; className?: string }>) {
+}: Readonly<{
+  src: string;
+  alt: string;
+  className?: string;
+}>) {
   return (
-    <div className={`overflow-hidden rounded-lg ${className}`}>
+    <div className={`${className}`}>
       <Image
         priority
         src={src}
         alt={alt}
         width={900}
         height={600}
-        className="w-full  object-cover"
+        className="rounded-lg w-full h-full object-cover"
       />
     </div>
   );
