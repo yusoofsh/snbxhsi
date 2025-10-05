@@ -1,0 +1,54 @@
+name: Pages
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      - name: Checkout full history (incl. tags)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare public folder from all tag commits
+        run: |
+          set -euo pipefail
+          git log --tags --simplify-by-decoration --pretty=format:"%H" | while read COMMIT_HISTORY_SHA; do
+            git checkout --force "$COMMIT_HISTORY_SHA"
+            mkdir -p "public/$COMMIT_HISTORY_SHA"
+            # Copy if present (some commits may lack these)
+            [ -d tasks ] && cp -r tasks "public/$COMMIT_HISTORY_SHA/" || true
+            [ -f readme.md ] && cp readme.md "public/$COMMIT_HISTORY_SHA/" || true
+          done
+          # Return to the triggering commit
+          git checkout --force "$GITHUB_SHA"
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
